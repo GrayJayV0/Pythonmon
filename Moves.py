@@ -1,4 +1,5 @@
 from TypeChart import *
+from Func import *
 
 
 class Move:

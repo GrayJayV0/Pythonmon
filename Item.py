@@ -1,6 +1,7 @@
 from TypeChart import *
 from random import *
 from Player import *
+from Func import *
 from copy import deepcopy
 class Item:
   def __init__(self, Name, Description, Uses, Effect = None):
@@ -11,30 +12,37 @@ class Item:
 
 
 def catch(name,pokemon,wildPokemon,player):
+  Typewrite(f'You threw a {name}\n')
   if name == "Pokeball":
     ball = randint(1,256)
     catchChance = (wildPokemon.Max*255*4)/(wildPokemon.Hp*ball)
     shakes = (wildPokemon.CatchRate*100/ball)*(catchChance)/255
     if shakes < 10:
-      print('miss')
+      Typewrite('miss\n')
+      input()
       return
     elif shakes < 30:
-      print('shake once')
+      Typewrite('shake\n')
     elif shakes < 70:
-      print('shake twice')
+      for i in range(2):
+        Typewrite('shake\n')
     else:
-      print('shake thrice')
+      for i in range(3):
+        Typewrite('shake\n')
     if catchChance >= ball:
-      print('catch')
+      Typewrite('catch\n')
       for slots in player.Loadout:
         if player.Loadout[slots] == None:
-          print(f'{wildPokemon.Name} was added to your party')
+          Typewrite(f'{wildPokemon.Name} was added to your party\n')
+          input()
           player.Loadout[slots] = deepcopy(wildPokemon)
           wildPokemon.Hp = 0
           return wildPokemon
-      print(f'{wildPokemon.Name} was added to your pc')
+      Typewrite(f'{wildPokemon.Name} was added to your pc\n')
+      input()
       return
     else:
-      print('broke free')
+      Typewrite('broke free\n')
+      input()
 
-pokeball = Item('Pokeball',None,['battleInventory'], catch)
+pokeball = Item('Pokeball',"A device for catching wild Pokémon. It's thrown like a ball at a Pokémon, comfortably encapsulating its target.",['battleInventory'], catch)

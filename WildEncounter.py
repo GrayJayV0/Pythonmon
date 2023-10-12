@@ -3,8 +3,8 @@ from Pokemon import *
 from Moves import *
 from Player import *
 from random import *
+from Func import *
 from copy import deepcopy
-def clearConsole(): print("\033[H\033[J", end="") 
   
 
 def wildEncounter(player, pythonmon):
@@ -215,10 +215,6 @@ def wildEncounter(player, pythonmon):
               moveChoice = choice(wildPythonmon.Move)
               if moveChoice.Name != 'Blank':
                 break
-          elif ssChoice == '2':
-            input('Feature coming soon')
-            break
-          
             if moveChoice.Stat == 'damage' or moveChoice.Stat == 'damage effect':
 
               if randint(1,101) in range(moveChoice.Accuracy):
@@ -254,6 +250,10 @@ def wildEncounter(player, pythonmon):
                 clearConsole()
                 input(f'{selectedPythonmon.Name} lvl {selectedPythonmon.Lvl}\n{selectedPythonmon.Desc}\n\n{selectedPythonmon.Hp} Hp\n\n{selectedPythonmon.Atk} Atk\n\n{selectedPythonmon.Def} Def\n\n{selectedPythonmon.Spd} Spd\n')
                 continue
+          elif ssChoice == '2':
+            input('Feature coming soon')
+            break
+          
           else:
             if selectedPythonmon == player.Loadout[slots]:
               input(f'{player.Loadout[slots].Name} is already in')
@@ -261,7 +261,43 @@ def wildEncounter(player, pythonmon):
               continue
               input(f'{player.Loadout[slots].Name} cannot battle')
     elif battleChoice == '3':
-      battleInventory(selectedPythonmon,wildPythonmon)
+      result = battleInventory(selectedPythonmon,wildPythonmon)
+      if result == True:
+        while True:
+          moveChoice = choice(wildPythonmon.Move)
+          if moveChoice.Name != 'Blank':
+            break
+      
+        if moveChoice.Stat == 'damage' or moveChoice.Stat == 'damage effect':
+          
+          if randint(1,101) in range(moveChoice.Accuracy):
+            if moveChoice.Type == wildPythonmon.Type:
+              stab = 1.5
+            else:
+              stab = 1
+              
+            if randint(1,100) <= 6:
+              print('Critical')
+              crit = (float('1.'+str(wildPythonmon.Lvl)))
+            else:
+              crit = 1 
+      
+            if all(wildPythonmon.Type):
+              effectiveness = moveChoice.Type[selectedPythonmon.Type[0]]
+            else:
+              effectiveness = moveChoice.Type[selectedPythonmon.Type[0]] * moveChoice.Type[selectedPythonmon.Type[0]]
+      
+            if effectiveness == 1:
+              input(f'{wildPythonmon.Name} used {moveChoice.Name} it was effective\n')
+            elif effectiveness >= 2:
+              input(f'{wildPythonmon.Name} used {moveChoice.Name} it was super effective\n')
+            elif effectiveness <= .5:
+              input(f'{wildPythonmon.Name} used {moveChoice.Name} it was ineffective\n')
+            elif effectiveness == 0:
+              input(f'{wildPythonmon.Name} used {moveChoice.Name} it had no effect\n')
+            selectedPythonmon.Hp -= int((effectiveness*moveChoice.Effect*((stab*crit*(wildPythonmon.Atk/selectedPythonmon.Def)+1))) * float('0.1'+ str(randint(1,255))))
+          else:
+            input(f'{moveChoice.Name} missed')
 
     elif battleChoice == '4':
       if selectedPythonmon.Spd >= pythonmon.Spd:

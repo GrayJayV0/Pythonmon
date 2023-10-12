@@ -1,5 +1,6 @@
 from TypeChart import *
 from Moves import *
+from Func import *
 
 class Pokemon:
   def __init__(self, Name, Max, Hp, Atk, Def, Spd, Move, Type, Lvl, Desc, CatchRate, Xp = None, Item = None):

@@ -1,8 +1,8 @@
 from TypeChart import *
 from Pokemon import *
 from Item import *
+from Func import *
 from copy import deepcopy
-def clearConsole(): print("\033[H\033[J", end="") 
 
 class Player:
   def __init__(self, Name, Loadout, Inventory):
@@ -10,7 +10,7 @@ class Player:
     self.Loadout = Loadout
     self.Inventory = Inventory
 
-protagonist = Player('Jayden', {'slot1':None,'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball])
+protagonist = Player('Jayden', {'slot1':deepcopy(squirtle),'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball,pokeball,pokeball,pokeball,pokeball])
 
 def battleInventory(selectedPythonmon, wildPythonmon):
   while True:
@@ -29,21 +29,25 @@ def battleInventory(selectedPythonmon, wildPythonmon):
       choice = input(f"\n[ {end} ] Leave Inventory\n")
       clearConsole()
       if choice in inventoryChoice or choice == str(end):
+        # If the last number is inputted leaves inventory
+        if choice == str(end):
+          return False
         inventoryChoice = inventoryChoice[choice]
         break
 
-    # If the last number is inputted leaves inventory
-    if choice == str(end):
-      return
-    else:
-      while True:
-        clearConsole()
-        print(f"{inventoryChoice.Name}\n{inventoryChoice.Description}\n")
-        choice2 = input("[1]Use\n[2]Leave\n")
-        if choice2 not in ["1","2"]:
-          continue
+    while True:
+      clearConsole()
+      print(f"{inventoryChoice.Name}\n{inventoryChoice.Description}\n")
+      choice2 = input("[1]Use\n[2]Leave\n")
+      if choice2 not in ["1","2"]:
+        continue
 
-        if choice2 == "1" and 'battleInventory' in inventoryChoice.Uses:
-          inventoryChoice.Effect(inventoryChoice.Name,selectedPythonmon,wildPythonmon,protagonist)
-          protagonist.Inventory.remove(inventoryChoice)
-          return
+      if choice2 == "1" and 'battleInventory' in inventoryChoice.Uses:
+        clearConsole()
+        inventoryChoice.Effect(inventoryChoice.Name,selectedPythonmon,wildPythonmon,protagonist)
+        protagonist.Inventory.remove(inventoryChoice)
+        clearConsole()
+        return True
+      elif choice2 == "2":
+        clearConsole()
+        return False
