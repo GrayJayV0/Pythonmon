@@ -12,10 +12,10 @@ class Player:
 
 protagonist = Player('Jayden', {'slot1':None,'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball])
 
-def battleInventory():
+def battleInventory(selectedPythonmon, wildPythonmon):
   while True:
     while True:
-      a = {}
+      inventoryChoice = {}
       index = 0
       end = 1
       clearConsole()
@@ -24,13 +24,12 @@ def battleInventory():
       for space in protagonist.Inventory:
         index += 1
         end += 1
-        a += str(index):space,
-        print(f"[ {index} ] {space.Name[0]}")
-      a.append(str(end))
+        inventoryChoice.update({str(index): space})
+        print(f"[ {index} ] {space.Name}")
       choice = input(f"\n[ {end} ] Leave Inventory\n")
       clearConsole()
-      if choice in a:
-        a.clear()
+      if choice in inventoryChoice or choice == str(end):
+        inventoryChoice = inventoryChoice[choice]
         break
 
     # If the last number is inputted leaves inventory
@@ -39,34 +38,12 @@ def battleInventory():
     else:
       while True:
         clearConsole()
-        print(protagonist.Inventory[int(choice)-1].Name + "\n" + protagonist.Inventory[int(choice)-1].description + "\n")
+        print(f"{inventoryChoice.Name}\n{inventoryChoice.Description}\n")
         choice2 = input("[1]Use\n[2]Leave\n")
         if choice2 not in ["1","2"]:
           continue
-        # Equips the item and checks what type of item it is
-        if choice2 == "1" and protagonist.Inventory[int(choice)-1] not in protagonist.equip and protagonist.Inventory[int(choice)-1] in armour:
-          protagonist.Inventory.append(protagonist.equip[1])
-          protagonist.equip[1] = protagonist.Inventory[int(choice)-1]
-          protagonist.Inventory.remove(protagonist.Inventory[int(choice)-1])
-          clearConsole() 
-          break
-          
-        # Equips the item and checks what type of item it is
-        elif choice2 == "1" and protagonist.Inventory[int(choice)-1] not in protagonist.equip and protagonist.Inventory[int(choice)-1] in weapon:
-          protagonist.Inventory.append(protagonist.equip[0])
-          protagonist.equip[0] = protagonist.Inventory[int(choice)-1]
-          protagonist.Inventory.remove(protagonist.Inventory[int(choice)-1])
-          clearConsole()
-          break
-        elif choice2 == "1" and protagonist.Inventory[int(choice)-1] not in protagonist.equip and protagonist.Inventory[int(choice)-1] in item:
-          protagonist.Inventory[int(choice)-1].effect()
-          protagonist.Inventory.remove(protagonist.Inventory[int(choice)-1])
-          clearConsole()
-          break
-        # Leaves this inventory screen
-        elif choice2 == "2":
-          clearConsole()
-          break
-        # If the item is already equipped
-        else:
-          clearConsole()
+
+        if choice2 == "1" and 'battleInventory' in inventoryChoice.Uses:
+          inventoryChoice.Effect(inventoryChoice.Name,selectedPythonmon,wildPythonmon,protagonist)
+          protagonist.Inventory.remove(inventoryChoice)
+          return

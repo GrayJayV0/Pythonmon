@@ -8,6 +8,7 @@ def clearConsole(): print("\033[H\033[J", end="")
   
 
 def wildEncounter(player, pythonmon):
+  global wildPythonmon, selectedPythonmon
   wildPythonmon = deepcopy(pythonmon)
   for slot in player.Loadout:
     if player.Loadout[slot] != None:
@@ -217,28 +218,26 @@ def wildEncounter(player, pythonmon):
           elif ssChoice == '2':
             input('Feature coming soon')
             break
-            
-            
           
             if moveChoice.Stat == 'damage' or moveChoice.Stat == 'damage effect':
-              
+
               if randint(1,101) in range(moveChoice.Accuracy):
                 if moveChoice.Type == wildPythonmon.Type:
                   stab = 1.5
                 else:
                   stab = 1
-                  
+
                 if randint(1,100) <= 6:
                   print('Critical')
                   crit = (float('1.'+str(wildPythonmon.Lvl)))
                 else:
-                  crit = 1 
-          
+                  crit = 1
+
                 if all(wildPythonmon.Type):
                   effectiveness = moveChoice.Type[selectedPythonmon.Type[0]]
                 else:
                   effectiveness = moveChoice.Type[selectedPythonmon.Type[0]] * moveChoice.Type[selectedPythonmon.Type[0]]
-          
+
                 if effectiveness == 1:
                   input(f'{wildPythonmon.Name} used {moveChoice.Name} it was effective\n')
                 elif effectiveness >= 2:
@@ -248,7 +247,7 @@ def wildEncounter(player, pythonmon):
                 elif effectiveness == 0:
                   input(f'{wildPythonmon.Name} used {moveChoice.Name} it had no effect\n')
                 selectedPythonmon.Hp -= int((effectiveness*moveChoice.Effect*((stab*crit*(wildPythonmon.Atk/selectedPythonmon.Def)+1))) * float('0.1'+ str(randint(1,255))))
-        
+
               else:
                 input(f'{moveChoice.Name} missed')
             elif ssChoice == '2':
@@ -262,17 +261,7 @@ def wildEncounter(player, pythonmon):
               continue
               input(f'{player.Loadout[slots].Name} cannot battle')
     elif battleChoice == '3':
-        num = 0
-        line = ''
-        for items in player.Inventory:
-          num += 1
-          line += f'[{num}]{items}\n'
-        itemChoice = input(f'Inventory\n\n{line}')
-        num = 0
-        for items in player.Inventory:
-          num += 1
-          if str(num) == itemChoice:
-            items()
+      battleInventory(selectedPythonmon,wildPythonmon)
 
     elif battleChoice == '4':
       if selectedPythonmon.Spd >= pythonmon.Spd:
