@@ -12,8 +12,8 @@ from copy import deepcopy
 #   if a == "catch":
 #     x += 1
 # print(x)
-# inventory()
+battleInventory()
 
 # catch("pokeball", squirtle.Hp, squirtle)
 
-wildEncounter(protagonist, squirtle)
+# wildEncounter(protagonist, squirtle)

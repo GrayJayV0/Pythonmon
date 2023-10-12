@@ -204,7 +204,7 @@ def wildEncounter(player, pythonmon):
       num = 0
       for slots in player.Loadout:
         num += 1
-        if int(partyChoice) == num and player.Loadout[slots].Name != None:
+        if int(partyChoice) == num and player.Loadout[slots] != None:
           ssChoice = input(f'{player.Loadout[slots].Name}\n[1]Switch [2]Stats [3]Cancel\n')
           if ssChoice == '1' and selectedPythonmon != player.Loadout[slots] and player.Loadout[slots].Hp > 0:
             selectedPythonmon = player.Loadout[slots]
@@ -261,8 +261,6 @@ def wildEncounter(player, pythonmon):
             else:
               continue
               input(f'{player.Loadout[slots].Name} cannot battle')
-            
-  
     elif battleChoice == '3':
         num = 0
         line = ''
@@ -379,7 +377,7 @@ def wildEncounter(player, pythonmon):
       num = 0
       for slots in player.Loadout:
         num += 1
-        if int(partyChoice) == num and player.Loadout[slots].Name != None:
+        if int(partyChoice) == num and player.Loadout[slots] != None:
           ssChoice = input(f'{player.Loadout[slots].Name}\n[1]Switch [2]Stats [3]Cancel\n')
           if ssChoice == '1' and selectedPythonmon != player.Loadout[slots] and player.Loadout[slots].Hp > 0:
             selectedPythonmon = player.Loadout[slots]

@@ -5,43 +5,41 @@ from copy import deepcopy
 def clearConsole(): print("\033[H\033[J", end="") 
 
 class Player:
-  def __init__(self, Name = None, Loadout = {'slot1':None,'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, Inventory = [pokeball]):
+  def __init__(self, Name, Loadout, Inventory):
     self.Name = Name
     self.Loadout = Loadout
     self.Inventory = Inventory
 
-protagonist = Player('Jayden')
+protagonist = Player('Jayden', {'slot1':None,'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball])
 
-def inventory():
-  a = []
-  end = 1
+def battleInventory():
   while True:
     while True:
+      a = {}
+      index = 0
+      end = 1
       clearConsole()
-      # Shows what items you have equipped
       print("Your Inventory")
       # Assigns a number to each inventory item
       for space in protagonist.Inventory:
-        a.append(str(end+1))
-        print("[" + str(i+1) + "] " + protagonist.Inventory['space'].name)
-        # end = i + 2
+        index += 1
+        end += 1
+        a += str(index):space,
+        print(f"[ {index} ] {space.Name[0]}")
       a.append(str(end))
-      choice = input("\n[" + str(end) + "]" +"Leave Inventory\n")
+      choice = input(f"\n[ {end} ] Leave Inventory\n")
       clearConsole()
-      print(choice)
       if choice in a:
         a.clear()
         break
-      else:
-        a.clear()
-        continue
+
     # If the last number is inputted leaves inventory
     if choice == str(end):
       return
     else:
       while True:
         clearConsole()
-        print(protagonist.Inventory[int(choice)-1].name + "\n" + protagonist.Inventory[int(choice)-1].description + "\n")
+        print(protagonist.Inventory[int(choice)-1].Name + "\n" + protagonist.Inventory[int(choice)-1].description + "\n")
         choice2 = input("[1]Use\n[2]Leave\n")
         if choice2 not in ["1","2"]:
           continue

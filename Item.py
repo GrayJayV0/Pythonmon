@@ -4,15 +4,15 @@ from Player import *
 from copy import deepcopy
 
 class Item:
-  def __init__(self, name, description, effect):
-    self.name = name,
+  def __init__(self, Name, description, effect):
+    self.Name = Name,
     self.description = description,
     self.effect = effect
 
-pokeball = Item('pokeball',None,None)
+pokeball = Item('Pokeball',None,None)
 
-def catch(name,max,pokemon):
-  if name == "pokeball":
+def catch(Name,max,pokemon):
+  if Name == "Pokeball":
     ball = randint(1,256)
     catchChance = (max*255*4)/(pokemon.Hp*ball)
     shakes = (pokemon.CatchRate*100/ball)*(catchChance)/255
