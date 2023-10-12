@@ -262,7 +262,7 @@ def wildEncounter(player, pythonmon):
               input(f'{player.Loadout[slots].Name} cannot battle')
     elif battleChoice == '3':
       result = battleInventory(selectedPythonmon,wildPythonmon)
-      if result == True:
+      if result == True and wildPythonmon.Hp > 0:
         while True:
           moveChoice = choice(wildPythonmon.Move)
           if moveChoice.Name != 'Blank':

@@ -19,7 +19,7 @@ class Pokemon:
     self.CatchRate = CatchRate
 
 squirtle = Pokemon('Squirtle', 44, 44
-                   , 48, 65, 43, [tackle,waterGun,blank,blank], ['water'], 5, 'Shoots water at prey while in the water. Withdraws into its shell when in danger', 45)
+                   , 5, 65, 43, [tackle,waterGun,blank,blank], ['water'], 5, 'Shoots water at prey while in the water. Withdraws into its shell when in danger', 45)
 
 charmander = Pokemon('Charmander', 39, 39
 , 52, 43, 65, [scratch,ember,blank,blank], ['fire'], 5, 'Obviously prefers hot places. When it rains, steam is said to spout from the tip of its tail.', 45)
