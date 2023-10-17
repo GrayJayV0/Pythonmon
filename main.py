@@ -7,4 +7,6 @@ from Item import *
 from Func import *
 from copy import deepcopy
 
-wildEncounter(protagonist, squirtle)
+print(squirtle.displayXp())
+# wildEncounter(protagonist, squirtle)
+# wildEncounter(protagonist, charmander)
