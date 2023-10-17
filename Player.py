@@ -10,7 +10,7 @@ class Player:
     self.Loadout = Loadout
     self.Inventory = Inventory
 
-protagonist = Player('Jayden', {'slot1':deepcopy(squirtle),'slot2':deepcopy(bulbasaur) ,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball,pokeball,pokeball,pokeball,pokeball])
+protagonist = Player('Jayden', {'slot1':deepcopy(bulbasaur),'slot2':None,'slot3':deepcopy(charmander),'slot4':None,'slot5':None,'slot6':None}, [pokeball,pokeball,pokeball,pokeball,pokeball])
 
 def battleInventory(selectedPythonmon, wildPythonmon):
   while True:
